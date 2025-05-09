@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+  font-family: 'Poppins', 'Inter', Arial, sans-serif;
+  color: #22223b;
+}
+
+.main-card {
+  background: #fff;
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  padding: 2.5rem 2rem;
+  margin: 2rem auto;
+  max-width: 1200px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #22223b;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: #4b5563;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  @apply bg-indigo-500 text-white font-semibold px-6 py-3 rounded-full shadow hover:bg-indigo-600 transition;
+}
+
+.btn-outline {
+  @apply border border-indigo-500 text-indigo-500 font-semibold px-6 py-3 rounded-full shadow hover:bg-indigo-50 transition;
+}
+
+.card {
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.08);
+  padding: 1.5rem;
+}
+
+.floating-tag {
+  @apply flex items-center gap-2 bg-white rounded-full shadow px-4 py-2 text-indigo-500 font-medium text-sm absolute;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
