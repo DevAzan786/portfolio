@@ -21,7 +21,7 @@ A modern, interactive 3D portfolio website built with React, Three.js, and TypeS
 - **Build Tool**: Vite
 - **Language**: TypeScript
 - **Icons**: React Icons
-- **Email Service**: EmailJS
+- **Email Service**: @emailjs/browser
 
 ## 🏗️ Project Structure
 
@@ -37,7 +37,7 @@ portfolio-3d/
 
 1. **Clone the repository**
    ```bash
-   git clone [your-repository-url]
+   git clone https://github.com/DevAzan786/portfolio.git
    cd portfolio-3d
    ```
 
@@ -73,6 +73,13 @@ VITE_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
+## 🚀 Deployment
+
+This project is deployed on Vercel. The build process includes:
+- TypeScript compilation
+- Vite build optimization
+- Automatic deployment on push to main branch
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -83,5 +90,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👤 Contact
 
-[Your Name] - [Your Email]
-Project Link: [https://github.com/yourusername/portfolio-3d]
+DevAzan786 - [Your Email]
+Project Link: https://github.com/DevAzan786/portfolio

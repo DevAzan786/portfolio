@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import { FaLinkedin, FaGithub, FaWhatsapp } from 'react-icons/fa';
 
 const SOCIALS = [
@@ -32,12 +32,15 @@ const Contact = () => {
     setSending(true);
     setError('');
     setSent(false);
+
+    if (!form.current) return;
+
     emailjs
       .sendForm(
-        'service_0r8e0bo', // <-- Replace with your EmailJS service ID
-        'template_ub6kgvj', // <-- Replace with your EmailJS template ID
-        form.current!,
-        'oOZnkI4nDzIYxB5y8' // <-- Replace with your EmailJS user/public key
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        form.current,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       .then(
         () => {
@@ -45,7 +48,8 @@ const Contact = () => {
           setSent(true);
           if (form.current) form.current.reset();
         },
-        (err) => {
+        (error: Error) => {
+          console.error('EmailJS error:', error);
           setSending(false);
           setError('Failed to send. Please try again.');
         }
