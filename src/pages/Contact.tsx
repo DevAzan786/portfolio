@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { FaLinkedin, FaGithub, FaWhatsapp } from 'react-icons/fa';
@@ -21,39 +21,77 @@ const SOCIALS = [
   },
 ];
 
+// EmailJS Configuration
+const EMAILJS_CONFIG = {
+  serviceId: 'service_0r8e0bo',
+  templateId: 'template_ub6kgvj',
+  publicKey: 'oOZnkI4nDzIYxB5y8'
+};
+
 const Contact = () => {
   const form = useRef<HTMLFormElement>(null);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
 
-  const sendEmail = (e: React.FormEvent) => {
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(EMAILJS_CONFIG.publicKey);
+  }, []);
+
+  const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
     setError('');
     setSent(false);
 
-    if (!form.current) return;
+    if (!form.current) {
+      setError('Form reference is missing');
+      setSending(false);
+      return;
+    }
 
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+    try {
+      const formData = new FormData(form.current);
+      console.log('Form Data:', {
+        name: formData.get('user_name'),
+        email: formData.get('user_email'),
+        message: formData.get('message')
+      });
+
+      const result = await emailjs.sendForm(
+        EMAILJS_CONFIG.serviceId,
+        EMAILJS_CONFIG.templateId,
         form.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      )
-      .then(
-        () => {
-          setSending(false);
-          setSent(true);
-          if (form.current) form.current.reset();
-        },
-        (error) => {
-          console.error('EmailJS error:', error);
-          setSending(false);
-          setError(`Failed to send: ${error.text || 'Please try again.'}`);
-        }
+        EMAILJS_CONFIG.publicKey
       );
+
+      console.log('EmailJS Result:', result);
+
+      if (result.text === 'OK') {
+        setSending(false);
+        setSent(true);
+        if (form.current) form.current.reset();
+      } else {
+        throw new Error(`Failed to send email: ${result.text}`);
+      }
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      setSending(false);
+      if (err instanceof Error) {
+        if (err.message.includes('Failed to fetch')) {
+          setError('Network error. Please check your internet connection.');
+        } else if (err.message.includes('Invalid template')) {
+          setError('Email template configuration error.');
+        } else if (err.message.includes('Invalid service')) {
+          setError('Email service configuration error.');
+        } else {
+          setError(`Failed to send email: ${err.message}`);
+        }
+      } else {
+        setError('Failed to send email. Please try again later.');
+      }
+    }
   };
 
   return (
@@ -71,14 +109,14 @@ const Contact = () => {
         <form ref={form} onSubmit={sendEmail} className="mt-8 flex flex-col gap-4">
           <input
             type="text"
-            name="user_name"
+            name="from_name"
             placeholder="Your Name"
             required
             className="px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-base"
           />
           <input
             type="email"
-            name="user_email"
+            name="reply_to"
             placeholder="Your Email"
             required
             className="px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-base"
@@ -99,7 +137,7 @@ const Contact = () => {
           </button>
         </form>
         {sent && (
-          <div className="mt-4 text-green-600 font-semibold text-center">Mail has been sent!</div>
+          <div className="mt-4 text-green-600 font-semibold text-center">Message sent successfully!</div>
         )}
         {error && (
           <div className="mt-4 text-red-600 font-semibold text-center">{error}</div>

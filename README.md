@@ -13,7 +13,7 @@ A modern, interactive 3D portfolio website built with React, Three.js, and TypeS
 
 ## 🛠️ Technologies Used
 
-- **Frontend Framework**: React 19
+- **Frontend Framework**: React 18
 - **3D Graphics**: Three.js, React Three Fiber, Drei
 - **Styling**: Tailwind CSS
 - **Animation**: Framer Motion, GSAP
@@ -63,14 +63,24 @@ portfolio-3d/
 - `npm run lint` - Run ESLint
 - `npm run preview` - Preview production build
 
-## 📝 Environment Variables
+## 📝 EmailJS Configuration
 
-Create a `.env` file in the root directory and add your EmailJS credentials:
+To set up the contact form, you'll need to:
 
-```env
-VITE_EMAILJS_SERVICE_ID=service_0r8e0bo
-VITE_EMAILJS_TEMPLATE_ID=template_ub6kgvj
-VITE_EMAILJS_PUBLIC_KEY=oOZnkI4nDzIYxB5y8
+1. Create an account on [EmailJS](https://www.emailjs.com/)
+2. Create an email service (Gmail, Outlook, etc.)
+3. Create an email template with these variables:
+   - `{{user_name}}`
+   - `{{user_email}}`
+   - `{{message}}`
+4. Update the `EMAILJS_CONFIG` in `src/pages/Contact.tsx` with your credentials:
+
+```typescript
+const EMAILJS_CONFIG = {
+  serviceId: 'your_service_id',    // From EmailJS dashboard
+  templateId: 'your_template_id',  // From EmailJS dashboard
+  publicKey: 'your_public_key'     // From EmailJS dashboard
+};
 ```
 
 ## 🚀 Deployment
