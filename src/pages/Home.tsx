@@ -22,6 +22,7 @@ const Hero = () => {
     <section className="w-full min-h-[80vh] flex items-center justify-center pt-28 pb-8 sm:pt-32 sm:pb-12">
       {/* Click sound audio */}
       <audio ref={clickSound} src="/key6.wav" preload="auto" />
+      
       <div className="main-card w-full flex flex-col-reverse md:flex-row items-center gap-8 md:gap-10">
         {/* Left: Text */}
         <div className="flex-1 flex flex-col items-start justify-center w-full md:w-auto">
@@ -49,6 +50,7 @@ const Hero = () => {
             </a>
           </div>
         </div>
+
         {/* Right: PNG Avatar + Floating Skill Tags */}
         <div className="flex-1 relative flex items-center justify-center min-h-[220px] sm:min-h-[300px] md:min-h-[350px] w-full md:w-auto">
           <motion.div

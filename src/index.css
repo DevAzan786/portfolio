@@ -55,3 +55,26 @@ body {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
 }
+
+/* Responsive styles for floating tags */
+@media (max-width: 640px) {
+  .floating-tag {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 15px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .floating-tag {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.85rem;
+  }
+}
+
+/* Add hover effect */
+.floating-tag:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 8px -1px rgba(0, 0, 0, 0.15), 0 3px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
