@@ -68,9 +68,9 @@ portfolio-3d/
 Create a `.env` file in the root directory and add your EmailJS credentials:
 
 ```env
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
+VITE_EMAILJS_SERVICE_ID=service_0r8e0bo
+VITE_EMAILJS_TEMPLATE_ID=template_ub6kgvj
+VITE_EMAILJS_PUBLIC_KEY=oOZnkI4nDzIYxB5y8
 ```
 
 ## 🚀 Deployment

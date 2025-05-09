@@ -48,10 +48,10 @@ const Contact = () => {
           setSent(true);
           if (form.current) form.current.reset();
         },
-        (error: Error) => {
+        (error) => {
           console.error('EmailJS error:', error);
           setSending(false);
-          setError('Failed to send. Please try again.');
+          setError(`Failed to send: ${error.text || 'Please try again.'}`);
         }
       );
   };
